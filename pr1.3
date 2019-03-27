@@ -1,0 +1,96 @@
+#include "pch.h"
+#include <string>
+#include <iostream>
+#define T 9
+using namespace std;
+class group
+{
+private:
+	int k;
+	string name, surname;
+public:
+	group(){}
+	group(int km, string nm, string srm)
+	{
+		k = km;
+		name = nm;
+		surname = srm;
+	}
+	void cs1()
+	{
+		cout << "Введите имя студента" << endl;
+		cin >> name;
+		cout << "Введите фамилию студента" << endl;
+		cin >> surname;
+		k = 0;
+	}
+	void cs2()
+	{
+		int h=25, min=60;
+		cout << "Студент " << name << " " << surname << " пришел в чч мм ";
+		cin >> h >> min;
+		while ((h < 0) || (h > 23) || (min < 0) || (min > 59)) 
+		{
+			cout << "Вы ввели неверный формат времени. Пожалуйста, введите время прихода студента ещё раз" << endl;
+			cin >> h >> min;
+		}
+		if ((h * 60 + min) > (T * 60))
+			k++;
+	}
+	void Print()
+	{
+		cout << name <<" "<< surname << ". Количество опозданий:" << k << endl;
+	}
+	void cs3()
+	{
+		if (k > 1)
+			cout << name << " " << surname << ". Количество опозданий:" << k << endl;
+	}
+};
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int t=1,i,n=3;
+	group*stud = new group[sizeof(int)];
+	stud[0] = group(1,"Ivan","Ivanov");
+	stud[1] = group(0, "Peter", "Petrov");
+	stud[2] = group(2, "Alex", "Alekseev");
+	for (i = 0; i < n; i++)
+		stud[i].Print();
+	while (t != 4)
+	{
+		cout << "Выберите действие:" << endl << "1-Добавить студента" << endl << "2-Записать время прихода студентов" << endl << "3-Вывести фамилии студентов у которых больше 1 опоздания(пришёл после "<<T<<":00)" << endl << "4-Закончить работу программы" << endl;
+		cin >> t;
+		switch (t)
+		{
+		case 1:
+		{
+			stud[n].cs1();
+			n++;
+			break;
+		}
+		case 2:
+		{
+			for (i = 0; i < n; i++)
+				stud[i].cs2();
+			break;
+		}
+		case 3:
+		{
+			for (i = 0; i < n; i++)
+				stud[i].cs3();
+			break;
+		}
+		default:
+		{
+			if (t != 4)
+				cout << "К сожалению для клавишы " <<t<< " действий не предусмотрено"<< endl;
+		}
+			break;
+		}
+	}
+	for (i = 0; i < n; i++)
+	stud[i].Print();
+	delete[] stud;
+	return 0;
+}
