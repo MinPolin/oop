@@ -1,0 +1,45 @@
+#include "pch.h"
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	float a, x, y, t, k=0;
+	cout << "Введите а х"<< endl;
+	cin >> a >> x;
+	if (a <= x)
+		if ((x + a) <= 0)
+		{
+			cout << "Невозможно определить значение y" << endl;
+			k = 1;
+		}
+		else
+			y = a + log(x + a);
+	else
+		if (sin(a*x) < 0)
+		{
+			cout << "Невозможно определить значение y1" << endl;
+			k = 1;
+		}
+		else
+			y = sqrt(sin(a*x));
+	if (k!=1)
+	{
+		if (a > y)
+			if ((a - x) == 0)
+				cout << "Невозможно определить значение t" << endl;
+			else
+				t = y / (a - x);
+		if (a == y)
+			if (((a - x) == 0) || (y == 0))
+				cout << "Невозможно определить значение t" << endl;
+			else
+				t = y / (a - x) + (a + x) / pow(y, 2);
+		if (a < y)
+			t = tan(a*x) + cos(2 * a*y);
+		cout << "t=" << t << endl << "y=" << y;
+	}
+	return 0;
+}
