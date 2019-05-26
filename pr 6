@@ -1,0 +1,87 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+class Property
+{
+protected:
+double worth;
+public:
+	Property() {};
+	Property(double a)
+	{
+		worth = a;
+	};
+	virtual void totax()=0;
+	virtual void print() = 0;
+};
+class Appartment: public Property
+{
+	double tax;
+public:
+	Appartment() {};
+	Appartment(double worth) :Property(worth) {};
+	void totax() override
+	{
+		this->tax= worth / 1000;
+	}
+	void print() override
+	{
+		cout << tax << "---налог на квартиру стоимостью " << worth << endl;
+	}
+};
+class Car : public Property
+{
+	double tax;
+public:
+	
+	Car() {};
+	Car(double worth) :Property(worth) {};
+	void totax() override
+	{
+		this->tax = worth / 200;
+	}
+	void print() override
+	{
+
+		cout << tax<<"---налог на машину стоимостью "<<worth<<endl;
+
+	}
+};
+class CountryHouse : public Property
+{
+	double tax;
+public:
+	CountryHouse() {};
+	CountryHouse(double worth) :Property(worth) {};
+	void totax() override
+	{
+		this->tax = worth / 500;
+	}
+	void print() override
+	{
+		cout << tax << "---налог на дачу стоимостью " << worth << endl;
+	}
+};
+int main()
+{
+	setlocale(LC_ALL,"rus");
+	Car *mascar = new Car[2];
+	mascar[0] = Car(3);
+	mascar[1] = Car(4);
+	CountryHouse *mashouse = new CountryHouse[2];
+	mashouse[0] = CountryHouse(20);
+	mashouse[1] = CountryHouse(40);
+	Appartment *masapp = new Appartment[3];
+	masapp[0] = Appartment(160);
+	masapp[1] = Appartment(230);
+	masapp[2] = Appartment(310);
+	Property *p[7] = {&masapp[0],&masapp[1],&masapp[2],&mashouse[0],&mashouse[1],&mascar[0],&mascar[1]};
+	for (int i = 0; i < 7; i++)
+	{
+		p[i]->totax();
+		p[i]->print();
+	}
+	delete[] mascar;
+	delete[] mashouse;
+	delete[] masapp;
+}
