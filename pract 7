@@ -1,0 +1,38 @@
+#include "pch.h"
+#include <string>
+#include <iostream>
+using namespace std;
+class animal {
+protected:
+	string name;
+public:
+	animal() {};
+	animal(string s) { name = s; };
+	virtual void voice()=0;
+};
+class cat:public animal {
+public:
+	cat(string s) :animal(s) {}
+	void voice() override
+	{
+		cout << name << " говорит мяу" << endl;
+	}
+};
+class dog :public animal {
+public:
+	dog(string s) :animal(s) {}
+	void voice() override
+	{
+		cout << name<< " говорит гав" << endl;
+	}
+};
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	cat mycat = cat("Пушок");
+	dog mydog = dog("Бим");
+	animal *p[2] = { &mycat,&mydog };
+	for (int i = 0; i < 2; i++)
+		p[i]->voice();
+     
+}
